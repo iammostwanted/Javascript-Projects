@@ -26,6 +26,6 @@ You're gonna need to create a DB named 'test' or whatever you name it,  import t
 
 Additionally install bootstrap and jquery
 
-Also, you will to install express:
+Also, you will need to install express:
 		
 		npm install -g express
