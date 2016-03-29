@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+    h1.
+        #{title}
+    form#formAddBlob(name="addblob",method="post",action="/blobs")
+        div(class)
+        p
+            label(for="exampleInputEmail1") Name: 
+                    input#inputName(class="form-control" type="text", placeholder="type your name here...", name="name")
+        p
+            label(for="exampleInputEmail1") Badge:
+                input#inputBadge(class="form-control" type="number", placeholder="type your badge here...", name="badge")
+        p
+            label DOB: 
+                input#inputDob(class="form-control" type="date", name="dob")
+        div(class = "checkbox")
+                label are you loved?
+                input#inputIsLoved(type="checkbox", name="isloved") 
+        p
+            label
+                button#btnSubmit(type="submit" class="btn btn-default") submit
