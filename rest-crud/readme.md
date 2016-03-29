@@ -23,3 +23,5 @@ server.js
 
 	
 You're gonna need to create a DB named 'test' or whatever you name it,  import t_user.sql
+
+Additionally install bootstrap and jquery
