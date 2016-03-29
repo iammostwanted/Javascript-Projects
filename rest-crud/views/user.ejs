@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%=title%></title>
+        <meta charset="utf-8">
+        <script type="text/javascript" src="/../js/jquery-1.10.2.min.js"></script>
+        <script src="/../jquery/dist/jquery.js"></script>
+        <script src="/../bootstrap/dist/js/bootstrap.js"></script>
+        <link rel="stylesheet" href="/../bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="/../css/style.css">
+        <link rel="shortcut icon" href="/../home.png">
+    </head>
+<body>
+<div class="container">
+    <div class="row">
+        <h1 align="center">Welcome to NodeJS CRUD Example</h1>
+    </div>
+    <div class="row margh3">
+                       <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+              Create new User
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 align="center" class="modal-title colorHead" id="myModalLabel">Creating a new User</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal" method="post" id="the-form">
+
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-4 control-label colorHead">Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="Name" name="name"> 
+                                </div>
+                            </div>
+
+                          <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-4 control-label colorHead">Email</label>
+                            <div class="col-sm-8">
+                              <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-4 control-label colorHead">Password</label>
+                            <div class="col-sm-8">
+                              <input type="password" class="form-control" id="inputMobile" placeholder="Password"             name="password">
+                            </div>
+                          </div>
+                            <hr>    
+                          <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              &nbsp; <input type="button" class="btn btn-success" value="Save" onClick="saveUser()">
+                            </div>
+                          </div>
+                        </form>
+                        <div class="page-data">
+                             <ul class="err-area"></ul>
+                        </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+    </div>   
+    <div class="row">
+                <table class="table table-bordered tablefont">
+                <thead>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Action</th>
+                </thead>
+                 
+                <tbody>               
+                <% if(data.length){ 
+                                
+                 for(var i = 0;i < data.length;i++) { %>
+                 
+                
+                    <tr>
+                        <td><%=(i+1)%></td>
+                        <td><%=data[i].name%></td>
+                        <td><%=data[i].email%></td>
+                        <td><%=data[i].password%></td>
+                        <td>
+     <a class="btn btn-success" href="/api/user/<%=data[i].user_id%>">Update</a>
+  
+
+      <a class="btn btn-danger" href="javascript:void(0)" onClick="deleteUser(<%=data[i].user_id%>)">Delete</a>
+
+
+
+            <!-- <a type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal1">
+              Update
+            </a>
+
+            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 align="center" class="modal-title colorHead" id="myModalLabel">Updating a User</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal" method="post" id="the-update-form">
+
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-4 control-label colorHead">Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control colorHead" name="name"                       value="<%=data[i].name%>"> 
+                                </div>
+                            </div>
+
+                          <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-4 control-label colorHead">Email</label>
+                            <div class="col-sm-8">
+                              <input type="email" class="form-control" name="email" value="<%=data[i].email%>">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-4 control-label colorHead">Password</label>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" id="inputMobile" name="password"                  value="<%=data[i].password%>">
+                            </div>
+                          </div>
+                            <hr>    
+                          <div class="form-group">
+                            <div class="col-sm-offset-1 col-sm-8">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              &nbsp; <input type="button" class="btn btn-success" value="Update"                      onClick="updateUser(<%=data[i].user_id%>)">
+                            </div>
+                          </div>
+                        </form>
+                        <div class="page-data">
+                             <ul class="err-area"></ul>
+                        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+ -->
+                            <!-- Small modal -->
+<!--                             <button type="button" class="btn btn-danger " data-toggle="modal" data-target=".bs-example-modal-sm">Delete</button>
+
+                            <div class="modal fade bs-example-modal-sm " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                              <div class="modal-dialog modal-sm">
+                                <div align="center" class="modal-content">
+                                    <div align="center" class="modal-header colorError">Are you sure to delete?</div>
+                                    <div align="center" class="modal-body">
+                                      <a class="btn btn-danger" href="javascript:void(0)" onClick="deleteUser(<%=data[i].user_id%>)">Yes</a>
+                                      <a href="javascript:void(0)" onClick="reload()" class="btn btn-default" data-dismiss="modal">No</a>
+                                    </div>
+                                </div>
+                              </div>
+                            </div> -->
+
+                        </td>
+                    </tr>
+                
+            <% }
+            
+             }else{ %>
+                 <tr>
+                    <td colspan="5">No Data</td>
+                 </tr>
+            <% } %>
+            </tbody>
+                                              
+            </table>
+    </div>    
+
+    </div>
+<script>
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#myInput').focus()
+    })
+
+    $('#myModal1').on('shown.bs.modal', function () {
+      $('#myInput1').focus()
+    })
+
+    function saveUser(){
+       $.ajax({
+        url:"/api/user",
+        type:"post",
+        data:$("#the-form").serialize(),
+        success:function(res){
+            
+            window.location.reload();
+            return false;
+        },
+        error:function(xhr, status, error){
+            
+            console.log(xhr.responseText);
+            var err = '';
+            $.each(JSON.parse(xhr.responseText) , function(i, item) {
+               
+                 err +='<li class="colorError">'+item.msg+'</li>';
+            });
+            $(".err-area").html(err);    
+            return false;
+        }
+        
+       });
+  }
+    
+    function deleteUser(user_id){
+    
+        $.ajax({
+            url:"/api/user/"+user_id,
+            type: 'DELETE',
+            success: function(res) {
+                
+                window.location.reload();
+                return false;
+            },
+            error:function(xhr, status, error){
+            
+                console.log(xhr.responseText);
+                alert("Error deleting");
+                return false;
+            }
+        });
+    }
+    function reload(){
+        window.location.reload();
+        return false;
+    }
+
+</script>
+</body>
+</html>
