@@ -9,8 +9,8 @@
 	<body class="container">
 		<p class="lead">Добро пожаловать в Chat!</p>
 		<form id="publish" action="" class="form-inline" method="POST">
-			<input type="text" name="message">
-			<input type="submit" value="отправить" class="btn btn-primary">
+			<input type="text" name="message"/>
+			<input type="submit" value="send" class="btn btn-primary">
 		</form>
 
 		<ul id="messages"></ul>
@@ -20,6 +20,7 @@
 
 				xhr.open("POST", "/publish", true);
 				xhr.send(JSON.stringify({message: this.elements.message.value}));
+
 				this.elements.message.value = '';
 
 				return false;
